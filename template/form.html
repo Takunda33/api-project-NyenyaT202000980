@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers Review Prediction</title>
+    <link rel="stylesheet" href="{% static 'front_end.css' %}">
+</head>
+<body>
+    <div class="main-content">
+        <header>
+            <h1>Sneaker Review Prediction</h1>
+        </header>
+        <div class="comment">
+            <form action="{% url 'api_endpoint' %}" method="post">
+                {% csrf_token %}
+
+                  <!-- Review Text -->
+                <label for="review_text">Enter your review:</label>
+                <textarea name="review_text" id="review_text" rows="4" required></textarea>
+                
+                <br>
+                <label for="rating">Rate the product (1-5):</label>
+                <input type="number" name="rating" id="rating" min="1" max="5" required>
+                <br>
+                <input type="submit" value="Prediction">
+            </form>
+            {% if sentiment %}
+            <div>
+                <h2>Predicted Sentiment:</h2>
+                <p>{{ sentiment }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
